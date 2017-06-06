@@ -8,9 +8,9 @@
 
 下一步目标：
 
-- 爬虫用scrapy框架，争取爬到更多数据。
+- []爬虫用scrapy框架，争取爬到更多数据。
 
-- 建立pipeline将数据存入到MongoDB，Pipeline详情见另一项目Data_Clean_Pipeline_System
+-[] 建立pipeline将数据存入到MongoDB，Pipeline详情见另一项目Data_Clean_Pipeline_System
 
 - 数据库选用NoSQL，MongoDB
 
