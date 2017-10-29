@@ -7,6 +7,7 @@ from flask_security.utils import encrypt_password
 import flask_admin
 from flask_admin.contrib import sqla
 from flask_admin import helpers as admin_helpers
+from flask_admin import BaseView, expose
 
 
 # Create Flask application
@@ -76,6 +77,133 @@ class MyModelView(sqla.ModelView):
                 # login
                 return redirect(url_for('security.login', next=request.url))
 
+# Create view of crawls
+class Crawls(BaseView):
+    '''
+        access control privileges in backend
+    '''
+    def is_accessible(self):
+        if not current_user.is_active or not current_user.is_authenticated:
+            return False
+
+        if current_user.has_role('superuser'):
+            return True
+
+        return False
+
+    @expose('/')
+    def Crawls(self):
+        if not self.is_accessible():
+            if current_user.is_authenticated:
+                # permission denied
+                abort(403)
+            else:
+                # login
+                return redirect(url_for('security.login', next=request.url))
+        return self.render('crawls.html')
+
+
+# Create view of database
+class Database(BaseView):
+    '''
+        access control privileges in backend
+    '''
+    def is_accessible(self):
+        if not current_user.is_active or not current_user.is_authenticated:
+            return False
+
+        if current_user.has_role('superuser'):
+            return True
+
+        return False
+
+    @expose('/')
+    def Database(self):
+        if not self.is_accessible():
+            if current_user.is_authenticated:
+                # permission denied
+                abort(403)
+            else:
+                # login
+                return redirect(url_for('security.login', next=request.url))
+        return self.render('database.html')
+
+# Create view of clean
+class Clean(BaseView):
+    '''
+        access control privileges in backend
+    '''
+    def is_accessible(self):
+        if not current_user.is_active or not current_user.is_authenticated:
+            return False
+
+        if current_user.has_role('superuser'):
+            return True
+
+        return False
+
+    @expose('/')
+    def Clean(self):
+        if not self.is_accessible():
+            if current_user.is_authenticated:
+                # permission denied
+                abort(403)
+            else:
+                # login
+                return redirect(url_for('security.login', next=request.url))
+        return self.render('clean.html')
+
+# Create view of analyze
+class Analyze(BaseView):
+    '''
+        access control privileges in backend
+    '''
+    def is_accessible(self):
+        if not current_user.is_active or not current_user.is_authenticated:
+            return False
+
+        if current_user.has_role('superuser'):
+            return True
+
+        return False
+
+    @expose('/')
+    def Analyze(self):
+        if not self.is_accessible():
+            if current_user.is_authenticated:
+                # permission denied
+                abort(403)
+            else:
+                # login
+                return redirect(url_for('security.login', next=request.url))
+        return self.render('analyze.html')
+
+# Create view of visualize
+class Visualize(BaseView):
+    '''
+        access control privileges in backend
+    '''
+    def is_accessible(self):
+        if not current_user.is_active or not current_user.is_authenticated:
+            return False
+
+        if current_user.has_role('superuser'):
+            return True
+
+        return False
+
+    @expose('/')
+    def Visualize(self):
+        if not self.is_accessible():
+            if current_user.is_authenticated:
+                # permission denied
+                abort(403)
+            else:
+                # login
+                return redirect(url_for('security.login', next=request.url))
+        return self.render('visualize.html')
+
+
 # Flask views
 @app.route('/')
 def index():
@@ -90,8 +218,15 @@ admin = flask_admin.Admin(
 )
 
 # Add model views
-admin.add_view(MyModelView(Role, db.session))
-admin.add_view(MyModelView(User, db.session))
+#admin.add_view(MyModelView(Role, db.session))
+#admin.add_view(MyModelView(User, db.session))
+
+# endpoint是http://ip:port/admin/{{endpoint}}后面的参数
+admin.add_view(Crawls(name='爬虫管理', endpoint='crawls'))
+admin.add_view(Database(name='数据库', endpoint='database'))
+admin.add_view(Clean(name='清洗', endpoint='clean'))
+admin.add_view(Analyze(name='分析', endpoint='analyze'))
+admin.add_view(Visualize(name='可视化', endpoint='visualize'))
 
 # define a context processor for merging flask-admin's template context into the
 # flask-security views.

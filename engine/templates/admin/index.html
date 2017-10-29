@@ -5,12 +5,20 @@
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
             <h1>金融文本挖掘专家系统</h1>
-            <p class="lead">
-                请登录
-            </p>
             {% if not current_user.is_authenticated %}
+                <p class="lead">
+                    请登录
+                </p>
                 <a class="btn btn-primary" href="{{ url_for('security.login') }}">login</a> <a class="btn btn-default" href="{{ url_for('security.register') }}">register</a>
             </p>
+            {% else %}
+                <p>
+                    <a class="btn btn-primary" href="/admin/crawls"><i class="glyphicon glyphicon-chevron-right"></i>爬虫管理</a>
+                    <a class="btn btn-primary" href="/admin/database"><i class="glyphicon glyphicon-chevron-right"></i>数据库</a>
+                    <a class="btn btn-primary" href="/admin/clean"><i class="glyphicon glyphicon-chevron-right"></i>数据清洗</a>
+                    <a class="btn btn-primary" href="/admin/analyze"><i class="glyphicon glyphicon-chevron-right"></i>数据分析</a>
+                    <a class="btn btn-primary" href="/admin/visualize"><i class="glyphicon glyphicon-chevron-right"></i>数据可视化</a>
+                </p>
             {% endif %}
             <p>
                 <a class="btn btn-primary" href="/"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
