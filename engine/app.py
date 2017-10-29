@@ -100,7 +100,7 @@ class Crawls(BaseView):
             else:
                 # login
                 return redirect(url_for('security.login', next=request.url))
-        return self.render('crawls.html')
+        return self.render('admin/crawls.html')
 
 
 # Create view of database
@@ -126,7 +126,7 @@ class Database(BaseView):
             else:
                 # login
                 return redirect(url_for('security.login', next=request.url))
-        return self.render('database.html')
+        return self.render('admin/database.html')
 
 # Create view of clean
 class Clean(BaseView):
@@ -151,7 +151,7 @@ class Clean(BaseView):
             else:
                 # login
                 return redirect(url_for('security.login', next=request.url))
-        return self.render('clean.html')
+        return self.render('admin/clean.html')
 
 # Create view of analyze
 class Analyze(BaseView):
@@ -176,7 +176,7 @@ class Analyze(BaseView):
             else:
                 # login
                 return redirect(url_for('security.login', next=request.url))
-        return self.render('analyze.html')
+        return self.render('admin/analyze.html')
 
 # Create view of visualize
 class Visualize(BaseView):
@@ -201,7 +201,7 @@ class Visualize(BaseView):
             else:
                 # login
                 return redirect(url_for('security.login', next=request.url))
-        return self.render('visualize.html')
+        return self.render('admin/visualize.html')
 
 
 # Flask views
