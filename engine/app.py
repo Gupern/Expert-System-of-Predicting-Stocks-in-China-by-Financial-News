@@ -84,7 +84,7 @@ def index():
 # Create admin
 admin = flask_admin.Admin(
     app,
-    'Example: Auth',
+    'Gupern\'s Project',
     base_template='my_master.html',
     template_mode='bootstrap3',
 )
@@ -105,6 +105,7 @@ def security_context_processor():
     )
 
 
+# 建数据库
 def build_sample_db():
     """
     Populate a small db with some example entries.
@@ -163,4 +164,4 @@ if __name__ == '__main__':
         build_sample_db()
 
     # Start app
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8888, debug=True)
