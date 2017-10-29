@@ -8,12 +8,25 @@
 兴趣是最好的老师，没有毕业、没有学分的束缚，相信会更好！
 
 
+- based on Flask-Admin
+
+    1. git clone https://github.com/flask-admin/flask-admin.git
+    2. cd ./flask-admin/examples/auth
+
+- based on python3.5 and it's prefer to use virtualenv
+    
+    1. install pip3
+        1. `wget https://bootstrap.pypa.io/get-pip.py`
+        2. `python3 get-pip.py`
+    2. `pip3 install virtualenv`
+    3. `virtualenv py3.5env -p python3`
+    4. `source py3.5env/bin/activate`
+    5. `pip3 install -r requirements.txt`
+
 
 ### Coding
 
 ---
-
-- [x] 集成到Flask Web中(1): 做成一个后台系统，用flask-admin框架
 
 - [ ] 集成到Flask Web中(1): 增加视图
 
@@ -52,6 +65,8 @@
 ### Done list
 
 ---
+
+- [x] 集成到Flask Web中(1): 做成一个后台系统，用flask-admin框架
 
 - [x] 爬虫用scrapy框架，争取爬到更多数据。
 
