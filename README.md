@@ -69,6 +69,8 @@
 
 ---
 
+- [x] 将scrapy的爬取和讯网stocknews.hexun.com的爬虫重写，用requests和lxml。
+
 - [x] 集成到Flask Web中(1): 增加5个视图: 爬虫、数据库、清洗、分析(各股票次数、各板块次数、预测次数)、可视化
 
 
