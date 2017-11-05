@@ -98,9 +98,9 @@ def parse_detail(db_name, detail_urls_col_name, target_col_name, floor, celling)
 
 
 # 解析列表页数据
-def parse_list(db_name, detail_urls_col_name):
+def parse_list(db_name, detail_urls_col_name, page_floor, page_celling):
     print('parsing')
-    pages = list(range(1,2057))
+    pages = list(range(page_floor, page_celling))
     urls = ['http://stock.hexun.com/stocknews/index-{}.html'.format(page) \
             for page in pages]
     urls.append('http://stock.hexun.com/stocknews/index.html')
@@ -138,12 +138,6 @@ def main():
     detail_urls_col_name = 'detail_urls'
     target_col_name = 'stock.hexun.com'
 
-##############################################
-# 这里可以优化成一个输入界面，让用户选择
-# 1. 爬取详情页链接
-# 2. 爬取详情页内容 
-# 3. 全部爬取 
-##############################################
     print('请选择您想要进行的操作:\n')
     print('1. 爬取详情页链接\n')
     print('2. 爬取详情页内容\n')
@@ -155,7 +149,9 @@ def main():
         pass
     elif choice==1:
         # 爬取详情页链接
-        parse_list(db_name, detail_urls_col_name)
+        page_floor = int(input('请输入从第几页开始爬，注意第一页的数字是最后一页'))
+        page_celling = int(input('请输入到第几页结束'))
+        parse_list(db_name, detail_urls_col_name, page_floor, page_celling)
     elif choice==2:
         # 爬取详情页内容 
         floor = int(input('请输入从第几个开始爬'))
@@ -163,7 +159,9 @@ def main():
         parse_detail(db_name, detail_urls_col_name, target_col_name, floor, celling)
     elif choice==3:
         # 爬取详情页链接
-        parse_list(db_name, detail_urls_col_name)
+        page_floor = int(input('请输入从第几页开始爬，注意第一页的数字是最后一页'))
+        page_celling = int(input('请输入到第几页结束'))
+        parse_list(db_name, detail_urls_col_name, page_floor, page_celling)
 
         # 爬取详情页内容 
         floor = int(input('请输入从第几个开始爬'))
