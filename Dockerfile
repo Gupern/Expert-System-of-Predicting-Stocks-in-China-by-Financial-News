@@ -22,7 +22,6 @@ RUN apt-get update -y \
  && apt-get install -y python3-pip \
  && pip3 install --upgrade pip -i https://pypi.douban.com/simple/ \
  && pip3 install -r $PROJECT_DIR/requirements.txt -i https://pypi.douban.com/simple/ \
- && pip3 install tushare==0.8.2 -i https://pypi.douban.com/simple/ \
  && locale-gen zh_CN.UTF-8 \
  && update-locale LANG=zh_CN.UTF-8 \
  && rm -irf /var/lib/apt/lists/* \
