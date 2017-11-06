@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 from flask import Flask, url_for, redirect, render_template, request, abort
 from flask_sqlalchemy import SQLAlchemy
