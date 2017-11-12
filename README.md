@@ -25,9 +25,9 @@
 
 - based on docker 
 
-    1. `cd Expert-System-of-Predicting-Stocks-in-China-by-Financial-News`
+    1. `cd esps`
     2. `sudo docker build -t esps .`
-    3. `sudo docker run --restart=always -d -v /etc/localtime:/etc/localtime:ro -v /root/Desktop/Expert-System-of-Predicting-Stocks-in-China-by-Financial-News/:/mnt --net host --name esps_engine esps /mnt/engine/run.sh`
+    3. `sudo docker run --restart=always -d -v /etc/localtime:/etc/localtime:ro -v /root/Desktop/esps/:/mnt --net host --name esps_engine esps /mnt/engine/run.sh`
 
 ### docker启动说明
 
@@ -52,11 +52,11 @@
 
 > 假设在root用户下，本机运行
 
-`sudo docker run -ti -v /etc/localtime:/etc/localtime:ro -v /root/Desktop/Expert-System-of-Predicting-Stocks-in-China-by-Financial-News/:/mnt --net host --name esps_engine --rm esps /mnt/engine/run.sh`
+`sudo docker run -ti -v /etc/localtime:/etc/localtime:ro -v /root/Desktop/esps/:/mnt --net host --name esps_engine --rm esps /mnt/engine/run.sh`
 
 > 服务器运行，加了`-d`的参数作为服务器启动，加了`--restart=always`防止服务器关闭
 
-`sudo docker run --restart=always -d -v /etc/localtime:/etc/localtime:ro -v /root/Desktop/Expert-System-of-Predicting-Stocks-in-China-by-Financial-News/:/mnt --net host --name esps_engine esps /mnt/engine/run.sh`
+`sudo docker run --restart=always -d -v /etc/localtime:/etc/localtime:ro -v /root/Desktop/esps/:/mnt --net host --name esps_engine esps /mnt/engine/run.sh`
 
 
 ### Coding
