@@ -25,7 +25,8 @@
 
 - based on docker 
 
-    1. `cd esps`
+    0. `mv Expert-System-of-Predicting-Stocks-in-China-by-Financial-News esps`
+    1. `cd esps` 
     2. `sudo docker build -t esps .`
     3. `sudo docker run --restart=always -d -v /etc/localtime:/etc/localtime:ro -v /root/Desktop/esps/:/mnt --net host --name esps_engine esps /mnt/engine/run.sh`
 
