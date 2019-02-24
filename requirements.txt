@@ -2,8 +2,6 @@ Flask>=0.12.3
 Flask-SQLAlchemy
 Flask-Security>=1.7.5
 pymongo
-lxml
-pandas
 appdirs==1.4.3
 click==6.7
 elasticsearch==5.2.0
@@ -51,12 +49,10 @@ scrapy
 jieba
 httpstat
 zeep==2.3.0
-cx-Oracle==6.0rc1
+cx-Oracle
 pdf2image
 python-pptx
 pyquery
-Flask-Security==3.0.0
-Flask-Sqlalchemy==2.3.1
 selenium
 pyquery
 begins
