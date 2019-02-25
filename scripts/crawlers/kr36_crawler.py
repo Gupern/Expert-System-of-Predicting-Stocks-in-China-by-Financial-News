@@ -82,7 +82,7 @@ def parse():
 
 def main():
     res = parse()
-    es, index, doc_type = get_es('es_crawler_kr36')
+    es, index, doc_type = get_es('es_news_kr36')
     for item in res:
         es.index(
             index=index,

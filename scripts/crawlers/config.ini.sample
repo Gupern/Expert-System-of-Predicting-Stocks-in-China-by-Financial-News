@@ -1,10 +1,10 @@
-[es_crawler_kr36]
+[es_news_kr36]
 host = 127.0.0.1
 port = 9200
 index = news
 doc_type = kr36
 
-[es_crawler_wallstreetcn]
+[es_news_wallstreetcn]
 host = 127.0.0.1
 port = 9200
 index = news
