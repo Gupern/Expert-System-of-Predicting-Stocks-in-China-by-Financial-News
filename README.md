@@ -70,9 +70,13 @@
 ### Coding
 
 ---
-
-- [ ] 重构项目1：数据库改为elasticsearch，改目录结构，运行项目
-- [ ] 新增财经新闻爬虫并定时运行
+- [ ] 新闻发布管理界面
+- [ ] 新闻前端展示
+- [ ] 新增华尔街见闻爬虫
+- [ ] 新增wind爬虫
+- [ ] 新增新智元爬虫
+- [ ] 运行和讯网爬虫 
+- [ ] 定时爬取功能
 
 ### Todo list
 
@@ -102,34 +106,3 @@
 
 - [ ] 做实时对比图
 
-- [ ] 未完待续...
-
-### Done list
-
----
-
-- [x] 在阿里云上部署docker + mongodb，并运行爬虫
-
-- [x] 用docker运行，并写docker运行文档
-
-- [x] 整合到docker一键部署，写好dockerfile，在虚拟机中开发
-
-- [x] 将scrapy的爬取和讯网stocknews.hexun.com的爬虫重写，用requests和lxml。
-
-- [x] 集成到Flask Web中(1): 增加5个视图: 爬虫、数据库、清洗、分析(各股票次数、各板块次数、预测次数)、可视化
-
-
-- [x] 集成到Flask Web中(1): 做成一个后台系统，用flask-admin框架
-
-- [x] 爬虫用scrapy框架，争取爬到更多数据。
-
-> 用scrapy爬虫爬取和讯网的股票新闻 http://stock.hexun.com/stocknews/, 注：已遵守该网站的robots.txt说明（All robots will spider the domain)
-> 已爬106507条新闻，有body、date、title、source_url四个字段，代码祥见文件夹scrapyLearning
-> 初步掌握scrapy框架，不过仍未精通，已知还欠缺代理ip、图像识别验证码、解密等高级知识
-
-
-- [x] 建立pipeline将数据存入到MongoDB，Pipeline详情见另一项目Data_Clean_Pipeline_System
-
-- [x] 数据库选用NoSQL，MongoDB，如果有必要，存数字数据到MySQL中当做学习   
-
-> 已经存入MongoDB，MongoDB的下载看官网https://www.mongodb.com/
