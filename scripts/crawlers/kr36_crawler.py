@@ -84,12 +84,15 @@ def main():
     res = parse()
     es, index, doc_type = get_es('es_news_kr36')
     for item in res:
-        es.index(
-            index=index,
-            doc_type=doc_type,
-            body=item,
-            id=item['title']
-        )
+        try:
+            es.index(
+                index=index,
+                doc_type=doc_type,
+                body=item,
+                id=item['title']
+            )
+        except:
+            print(item['title'])
 
 
 if __name__ == '__main__':
