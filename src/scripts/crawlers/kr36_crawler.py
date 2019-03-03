@@ -7,10 +7,14 @@ import sys
 import time
 import requests
 
-from src.utils.es import get_es
+# 引入上层的utils模块，爬虫和引擎共用
+BASE_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+sys.path.append("../../utils")
 
-CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, CURRENT_DIR)
+from es import get_es
+from nlp_tools import strip_title
+
 
 coding = ['utf8', 'gb2312', 'gb18030', 'gbk']
 timeout = 30
@@ -70,12 +74,13 @@ def parse():
         if obj.get('data') and obj['data'].get('items'):
             for item in obj['data'].get('items'):
                 tmp = {
-                    'title': item['title'],
-                    'abstract': item['title'] + '。' + item['description_text'],
+                    'title': strip_title(item['title']),
+                    'abstract': item['description_text'],
                     'datetime': item['updated_at'][:10]
                 }
                 crawl_time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
                 tmp['crawl_time'] = crawl_time
+                tmp['category'] = "technology_news"
                 res.append(tmp)
     return res
 
@@ -83,9 +88,17 @@ def parse():
 def main():
     res = parse()
     es, index, doc_type = get_es('es_news_kr36')
+    es1, index, doc_type = get_es('es_news_pub')
     for item in res:
         try:
             es.index(
+                index=index,
+                doc_type=doc_type,
+                body=item,
+                id=item['title']
+            )
+            # 存入到pub中
+            es1.index(
                 index=index,
                 doc_type=doc_type,
                 body=item,

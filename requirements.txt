@@ -1,3 +1,4 @@
+elasticsearch
 Flask
 Flask-Admin
 Flask-SQLAlchemy

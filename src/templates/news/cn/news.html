@@ -17,7 +17,7 @@
 		
 		<div class="news-btm">
 			<div class="news-btm-tip">以上信息来源于互联网公开信息，我们不对其真实性和完整性负责，亦不代表我们的观点或构成投资建议。版权归原创者所有，如有侵权，请联系我们及时删除。</div>
-			<div class="news-btm-name">京元工作坊</div>
+			<div class="news-btm-name">Gupern</div>
 		</div>
 
 	</div>
@@ -26,12 +26,7 @@
 
 	<script>
 
-	// 需要修改路径 getDataUrl ，dataType要注释
-	// 示例的路径为var getDataUrl = 'https://gupern.com/files/'+ todayDate;
-
-	var MainURL = 'http://api.gupern.com/esps/api/get_news/';
-
-	// var CollectURL = 'https://www.gupern.com/paiData';//记录次数
+	var MainURL = 'http://192.168.0.4/esps/api/get_news/';
 
 	// 获取当天日期
 	var myDate = new Date();
@@ -39,7 +34,6 @@
 	var getMonth= myDate.getMonth(); 
 	var getDate= myDate.getDate(); 
 	 
-	var  todayDate = '2018-04-10';
 	if(getDate < 10) {
 		getDate = '0' + getDate;
 	}else {
@@ -77,15 +71,10 @@
 
 	var  getArr = []; 
 	$(function() {
-
-
 		$.ajax({
 			"type": "GET",
-			// "type": "POST",
 	        "url": getDataUrl,
-	        
 	        "dataType": "json",
-
 	        "success": function (data) {
 	        	getArr = data.data;
 	            console.log("请求数据成功", data.data);
@@ -95,127 +84,36 @@
 	            }else {
 	            	conentHTML();
 	            }
-	            
 	        },
 	        error: function(data){
-		    // alert('Ajax error!')
 		    noneHTML();
 		    console.log("网络有问题请刷新",data)
 		  }
 	    });
-
-	 	// //收集次数
-	  //   $.ajax({
-			// "type": "POST",
-	  //       "url": CollectURL,
-	        
-	  //       "dataType": "json",
-	  //       "data": {
-	  //       	"forwardid":"H5打开次数"
-	  //       },
-	  //       "success": function (data) {
-	  //           console.log("请求数据成功", data);
-	  //       },
-	  //       error: function(data){
-		  
-		 //    console.log("网络有问题请刷新",data)
-		 //  }
-	  //   });
-
-
-	})
+	});
 
 function conentHTML() {	
 	// 高层表态
-	if (getArr.yihangsanhui_data.length > 0) {
+	if (getArr.technology_news.length > 0) {
 		var htmladd='';
 		htmladd +='<div class="news-con news-orange">'
-		htmladd +='	<div class="news-bigtit ">高层表态</div>'
-		htmladd +='	<ul class="news-ul yihangsanhui_data">'
-		htmladd +='	</ul>'
-		htmladd +='</div>'
-
-		var htmladd_aiData='';
-		for (var i = 0; i < getArr.yihangsanhui_data.length; i++) {
-			var num = i + 1;
-			htmladd_aiData +='<li class="news-li">'
-			htmladd_aiData +='	<h2 class="news-tit">'+ num+'、'+getArr.yihangsanhui_data[i].title+'</h2>'
-			htmladd_aiData +='	<p class="news-p">'+ getArr.yihangsanhui_data[i].abstract +'</p>'
-			htmladd_aiData +='</li>'
-		}
-
-		$(".news").append(htmladd)
-		$(".yihangsanhui_data").append(htmladd_aiData)
-	}
-
-
-	// 部委举措
-	if (getArr.gaocengdongtai_data.length > 0) {
-		var htmladd='';
-		htmladd +='<div class="news-con news-blue">'
-		htmladd +='	<div class="news-bigtit ">部委举措</div>'
-		htmladd +='	<ul class="news-ul gaocengdongtai_data">'
-		htmladd +='	</ul>'
-		htmladd +='</div>'
-
-		var htmladd_aiData='';
-		for (var i = 0; i < getArr.gaocengdongtai_data.length; i++) {
-			var num = i + 1;
-			htmladd_aiData +='<li class="news-li">'
-			htmladd_aiData +='	<h2 class="news-tit">'+ num+'、'+getArr.gaocengdongtai_data[i].title+'</h2>'
-			htmladd_aiData +='	<p class="news-p">'+ getArr.gaocengdongtai_data[i].abstract +'</p>'
-			htmladd_aiData +='</li>'
-		}
-
-		$(".news").append(htmladd)
-		$(".gaocengdongtai_data").append(htmladd_aiData)
-	}
-
-	// 市场要闻
-	if (getArr.wallstreetcn_data.length > 0) {
-		var htmladd='';
-		htmladd +='<div class="news-con news-yellow">'
-		htmladd +='	<div class="news-bigtit ">市场要闻</div>'
-		htmladd +='	<ul class="news-ul wallstreetcn_data">'
-		htmladd +='	</ul>'
-		htmladd +='</div>'
-
-		var htmladd_aiData='';
-		for (var i = 0; i < getArr.wallstreetcn_data.length; i++) {
-			var num = i + 1;
-			htmladd_aiData +='<li class="news-li">'
-			htmladd_aiData +='	<h2 class="news-tit">'+ num+'、'+getArr.wallstreetcn_data[i].title+'</h2>'
-			htmladd_aiData +='	<p class="news-p">'+ getArr.wallstreetcn_data[i].abstract +'</p>'
-			htmladd_aiData +='</li>'
-		}
-
-		$(".news").append(htmladd)
-		$(".wallstreetcn_data").append(htmladd_aiData)
-	}
-
-
-	// 科技动态
-	if (getArr.dichan_data.length > 0) {
-		var htmladd='';
-		htmladd +='<div class="news-con news-green">'
 		htmladd +='	<div class="news-bigtit ">科技动态</div>'
-		htmladd +='	<ul class="news-ul dichan_data">'
+		htmladd +='	<ul class="news-ul technology_news">'
 		htmladd +='	</ul>'
 		htmladd +='</div>'
 
 		var htmladd_aiData='';
-		for (var i = 0; i < getArr.dichan_data.length; i++) {
+		for (var i = 0; i < getArr.technology_news.length; i++) {
 			var num = i + 1;
 			htmladd_aiData +='<li class="news-li">'
-			htmladd_aiData +='	<h2 class="news-tit">'+ num+'、'+getArr.dichan_data[i].title+'</h2>'
-			htmladd_aiData +='	<p class="news-p">'+ getArr.dichan_data[i].abstract +'</p>'
+			htmladd_aiData +='	<h2 class="news-tit">'+ num+'、'+getArr.technology_news[i].title+'</h2>'
+			htmladd_aiData +='	<p class="news-p">'+ getArr.technology_news[i].abstract +'</p>'
 			htmladd_aiData +='</li>'
 		}
 
 		$(".news").append(htmladd)
-		$(".dichan_data").append(htmladd_aiData)
+		$(".technology_news").append(htmladd_aiData)
 	}
-
 }
 
 function noneHTML() {	

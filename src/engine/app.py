@@ -1,15 +1,26 @@
 #encoding: utf-8
 import os
-from flask import Flask, url_for, redirect, render_template, request, abort
+from flask import Flask, url_for, redirect, render_template, request, abort, jsonify
+import sys
+import traceback
+
+# 引入上层的utils模块，爬虫和引擎共用
+BASE_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+sys.path.append("../utils")
+sys.path.append("../scripts")
+sys.path.append("../scripts/crawlers")
+
+from log import bootstrap
+
 
 app = Flask(__name__)
 
+
 @app.route('/api/get_news/<day>')
 def get_news(day):
+    from es import get_es
     """ 获取单独某一天的新闻 """
-    from push_news import get_news_obj, get_extra_news_obj
-
-    edit_version = False
     try:
         es, index, doc_type = get_es('es_news_pub')
         body = {
@@ -20,47 +31,29 @@ def get_news(day):
             }
         }
         res = es.search(index=index, doc_type=doc_type, body=body)
-        if res['hits']['hits']:
-            tmp = res['hits']['hits'][0]['_source']['content']
-            package = {
-                "yihangsanhui_data": tmp.get('高层表态'),
-                "gaocengdongtai_data": tmp.get('部委举措'),
-                "wallstreetcn_data": tmp.get('市场要闻'),
-                "dichan_data": tmp.get('科技动态'),
-            }
-            edit_version = True
-            return jsonify(
-                success=True,
-                data=package
-            )
+
+        # 科技动态板块
+        technology_news = []
+
+        for r in res['hits']['hits']:
+            tmp = r['_source']
+            print(tmp)
+            if tmp.get("category") == "technology_news":
+                technology_news.append(tmp)
+
+        package = {
+            "technology_news": technology_news
+        }
+
+        return jsonify(
+            success=True,
+            data=package
+        )
     except:
         traceback.print_exc()
 
-    if not edit_version:
-        try:
-            news_obj = get_news_obj(day)
-            extra_news_obj = get_extra_news_obj(day)
-
-            package = {
-                "yihangsanhui_data": [{'title': item[0], 'abstract': item[1]} for item in
-                                      news_obj['femorning'][0]['高层表态']],
-                "gaocengdongtai_data": [{'title': item[0], 'abstract': item[1]} for item in
-                                        news_obj['femorning'][1]['部委举措']],
-                "wallstreetcn_data": extra_news_obj['wallstreetcn'][:5],
-                "hujin_data": [],
-                "dichan_data": [{'title': item[0], 'abstract': item[1]} for item in news_obj['dichan']],
-            }
-
-            return jsonify(
-                success=True,
-                data=package
-            )
-        except:
-            return jsonify(
-                success=False,
-                data=[]
-            )
-
 
 if __name__ == '__main__':
+    bootstrap()
+
     app.run(host='0.0.0.0', port=8888, debug=True)

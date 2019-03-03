@@ -1,3 +1,9 @@
+[es_news_pub]
+host = 127.0.0.1
+port = 9200
+index = news
+doc_type = pub
+
 [es_news_kr36]
 host = 127.0.0.1
 port = 9200

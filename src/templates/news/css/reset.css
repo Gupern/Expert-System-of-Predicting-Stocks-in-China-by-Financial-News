@@ -26,50 +26,110 @@ html,body{
 	height:100%;
     -webkit-overflow-scrolling: touch;	
 }
-.fl {
-	float: left;
+
+.main {
+    padding-top: 12px;
+     word-break: break-all;
+    text-align: justify;
 }
-.fr {
-	float: right;
+.news-con {
+    padding-top: .3rem;
+    border-bottom: .5rem solid #eaeaea;
 }
-.text-center {
-	text-align: center;
+.news-bigtit {
+    width: 96%;
+    font-size: .8rem;
+    line-height: 1.2rem;
+    padding-left: 10px;
+    height: 1.2rem;
+    margin:0 auto .35rem;
+    box-sizing: border-box;
 }
-.font6rem {
-	font-size: .65rem;
+.news-orange .news-bigtit {
+    border-left: 4px solid #f04928;
 }
-.yanbao {
-	width: 94%;
-	padding: .2rem 3% .5rem;
-	margin-bottom: .3rem;
-	border-bottom: 1px solid #e5e5e5;
+.news-orange .news-bigtit,
+.news-orange .news-tit {
+    color: #f04928;
 }
-.yanbao-tit {
-	position:relative;
-	font-weight:bold;
-	font-size: .75rem;
-	line-height: 1rem;
-	padding: .3rem 0;
-	color:#f37938;
-	margin-bottom: .2rem;
+
+.news-blue .news-bigtit {
+    border-left: 4px solid #2e80f5;
 }
-.yanbao-tp {
-	width: 100%;
-	margin-bottom: .3rem;
+.news-blue .news-bigtit,
+.news-blue .news-tit{
+    color: #2e80f5
 }
-.yanbao-time,
-.yanbao-insName {
-	width: 25%;
+
+.news-deep-blue .news-bigtit {
+    border-left: 4px solid #36769e;
 }
-.yanbao-author {
-	width: 35%;
+.news-deep-blue .news-bigtit,
+.news-deep-blue .news-tit{
+    color: #36769e
 }
-.yanbao-rate {
-	width: 15%;
+
+.news-yellow .news-bigtit {
+    border-left: 4px solid #fd862f;
 }
-.yanbao-abstract  {
-	word-break:normal;
-	text-align:justify;
+.news-yellow .news-bigtit,
+.news-yellow .news-tit{
+    color: #fd862f;
+}
+
+.news-green .news-bigtit {
+    border-left: 4px solid #51ad55;
+}
+.news-green .news-bigtit,
+.news-green .news-tit{
+    color: #51ad55;
+}
+
+.news-purple .news-bigtit {
+    border-left: 4px solid #7738a0;
+}
+.news-purple .news-bigtit,
+.news-purple .news-tit{
+    color: #7738a0;
 }
 
 
+.news-tit {
+    font-size: .6rem;
+    line-height: 1rem;
+    margin-bottom: .3rem;
+}
+.news-p {
+    font-size: .6rem;
+    line-height: 1rem;
+}
+.news-li {
+    width: 96%;
+    margin: 0 auto .5rem;
+    padding: 0 2% .5rem;
+    border-bottom: 1px solid #eaeaea;
+}
+.news-li:nth-last-child(1) {
+    margin: 0 auto;
+}
+.news-btm {
+    width: 96%;
+    padding: 10px 2%;
+    background: #eaeaea;
+}
+.news-btm-name {
+    text-align: right;
+}
+.news-btm-tip {
+    margin-bottom: .3rem;
+}
+.news-btm-tip,
+.news-btm-name {
+    font-size: .4rem;
+}
+
+.none-tip {
+    font-size: .8rem;
+    line-height: 2rem;
+    text-align: center;
+}
