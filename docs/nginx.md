@@ -1,7 +1,7 @@
 ## nginx的配置
 ```nginx
         location / {
-            root   /<your_path>/src/engine/templates/news/;
+            root   /<your_esps_path>/src/templates/news/;
             index  index.html index.htm;
         }
         # esps的api转发
