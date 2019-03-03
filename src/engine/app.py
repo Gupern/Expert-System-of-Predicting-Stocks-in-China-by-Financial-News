@@ -2,6 +2,8 @@
 import os
 from flask import Flask, url_for, redirect, render_template, request, abort
 
+app = Flask(__name__)
+
 @app.route('/api/get_news/<day>')
 def get_news(day):
     """ 获取单独某一天的新闻 """
@@ -61,9 +63,4 @@ def get_news(day):
 
 
 if __name__ == '__main__':
-
-    app_dir = os.path.realpath(os.path.dirname(__file__))
-    database_path = os.path.join(app_dir, app.config['DATABASE_FILE'])
-
-    # Start app
     app.run(host='0.0.0.0', port=8888, debug=True)
