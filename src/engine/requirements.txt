@@ -1,6 +1,0 @@
-Flask
-Flask-Admin
-Flask-SQLAlchemy
-Flask-Security>=1.7.5
-pymongo
-lxml

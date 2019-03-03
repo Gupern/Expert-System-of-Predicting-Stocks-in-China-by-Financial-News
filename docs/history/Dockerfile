@@ -6,18 +6,14 @@ ENV PROJECT_DIR=/opt/project/esps
 
 WORKDIR $PROJECT_DIR
 
-COPY ./requirements.txt $PROJECT_DIR 
+COPY ../../requirements.txt $PROJECT_DIR
 
 RUN useradd labs && chown -R labs:labs $PROJECT_DIR 
 RUN apt-get update -y
 RUN apt-get upgrade -y
 RUN apt-get install -y apt-utils
 RUN apt-get install -y python3
-RUN apt-get install -y ttf-wqy-microhei
-RUN apt-get install -y fontconfig xfonts-utils
-RUN apt-get install -y unoconv
-RUN apt-get install -y poppler-utils
-RUN apt-get install -y vim git locales software-properties-common
+RUN apt-get install -y vim git locales
 RUN apt-get install -y build-essential libssl-dev libffi-dev python3-dev
 RUN apt-get install -y python3-pip
 RUN pip3 install --upgrade pip -i https://pypi.douban.com/simple/

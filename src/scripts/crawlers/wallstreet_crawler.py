@@ -1,14 +1,13 @@
-#!/usr/bin/env python3
-
+#encoding: utf-8
 import gzip
 import json
 import os
 import re
 import sys
 import time
-
 import requests
-from es import get_es
+
+from src.utils.es import get_es
 from pyquery import PyQuery as pq
 
 CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))

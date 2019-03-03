@@ -1,13 +1,13 @@
+#encoding: utf-8
 #!/usr/bin/env python3
-
 import gzip
 import json
 import os
 import sys
 import time
-
 import requests
-from es import get_es
+
+from src.utils.es import get_es
 
 CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, CURRENT_DIR)
