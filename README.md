@@ -14,7 +14,7 @@
 ## Stacks
 
 - based on Flask
-- based on python3.5 and it's prefer to use virtualenv
+- based on python 3.5 or later, and it's prefer to use virtualenv
     1. install pip3
         1. `wget https://bootstrap.pypa.io/get-pip.py`
         2. `python3 get-pip.py`
