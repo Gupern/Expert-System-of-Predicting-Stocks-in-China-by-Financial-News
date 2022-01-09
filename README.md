@@ -1,34 +1,22 @@
 ## Introduction
 - 一个金融领域的专家系统
-    - 财经新闻采集
-    - 股票新闻采集
+    - 网络信息采集
     - 自然语言处理
     - 数据统计分析
     - 日常报表生成
+    - 辅助投资决策
     
-## Purposes
-- 兴趣爱好，愉悦自己
-- 盲人摸象，了解经济
-- 如有可能，发家致富
-
 ## Stacks
 
-- based on Flask
-- based on python 3.5 or later, and it's prefer to use virtualenv
-    1. install pip3
-        1. `wget https://bootstrap.pypa.io/get-pip.py`
-        2. `python3 get-pip.py`
-    2. `pip3 install virtualenv`
-    3. `virtualenv py3.5env -p python3`
-    4. `source py3.5env/bin/activate`
-    5. `pip3 install -r requirements.txt`
-- 暂时不用docker，省去构建docker的麻烦
-- 前后端分离
+- java: spring cloud
+- vue
+- python
+- mysql
+- mongodb
 
-### 本机运行：
-`python3 app.py`
+## Todo list
 
-### Todo list
+- [ ] 规划功能，编写产品说明书
 - [ ] 新闻发布管理界面
 - [ ] 新增华尔街见闻爬虫
 - [ ] 新增wind爬虫
@@ -48,3 +36,6 @@
 - [ ] 爬取股票数据
 - [ ] 做实时对比图
 
+## Done list
+
+- [x] week1: 梳理功能架构、编写readme
