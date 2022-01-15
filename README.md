@@ -8,34 +8,9 @@
     
 ## Stacks
 
-- java: spring cloud
-- vue
 - python
-- mysql
 - mongodb
+- vscode plugin: mongodb for vscode
 
-## Todo list
-
-- [ ] 规划功能，编写产品说明书
-- [ ] 新闻发布管理界面
-- [ ] 新增华尔街见闻爬虫
-- [ ] 新增wind爬虫
-- [ ] 新增新智元爬虫
-- [ ] 运行和讯网爬虫 
-- [ ] 定时爬取功能
-- [ ] 获得所有最新的股票名称和相应股票代码
-- [ ] 情感分析:使用结巴进行分词获取积极消极词汇
-- [ ] 开发可视化界面，用d3.js or echarts.js 将数据展示出来
-- [ ] 开发爬虫界面，一键运行爬虫并返回最新更新时间
-- [ ] 使用消息队列MQ或者Redis
-- [ ] 进修机器学习、博弈论、和时间序列知识，等建设好数据仓库，则进行预测
-- [ ] 查询每条新闻中出现的股票名称或代码，打上标签nameTaps、codeTaps
-- [ ] 根据热度值画图
-- [ ] 搭建大数据集群，存储数据到elasticsearch/spark中
-- [ ] 自动爬取最新新闻
-- [ ] 爬取股票数据
-- [ ] 做实时对比图
-
-## Done list
-
-- [x] week1: 梳理功能架构、编写readme
+# some ref website
+- tushare: `https://tushare.pro/document/2?doc_id=25`
