@@ -7,8 +7,6 @@ import tushare as ts
 import configparser
 import os
 import pymongo
-
-
 """ configparser用法
 # 获取文件中所有的section(一个配置文件中可以有多个配置，如数据库相关的配置，邮箱相关的配置，每个section由[]包裹，即[section])，并以列表的形式返回
 # secs = cf.sections()
@@ -41,10 +39,12 @@ except Exception:
 # get tushare stock basic info
 ts.set_token(tushare_token)
 pro = ts.pro_api()
-data = pro.query('stock_basic',
-                 exchange='',
-                 list_status='L',
-                 fields='ts_code,symbol,name,area,industry,list_date,fullname,enname,cnspell,market,exchange,curr_type,is_hs')
+data = pro.query(
+    'stock_basic',
+    exchange='',
+    list_status='L',
+    fields='ts_code,symbol,name,area,industry,' +
+    'list_date,fullname,enname,cnspell,market,exchange,curr_type,is_hs')
 for i in range(0, len(data)):
     print(i)
     data_frame = data.loc[i]
