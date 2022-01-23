@@ -108,10 +108,16 @@ def crawl_detail_from_links():
             # 如果是中转页的情况
             for meta_item in middle_soup.find_all("meta"):
                 if meta_item.attrs.get('http-equiv') is not None and meta_item.attrs['http-equiv'] == "Refresh":
-                    source_link = meta_item.attrs['content'].split(';')[1].split('=')[1]
-                    print("change source_link...")
-                    source_html = requests.get(source_link).content
-                    source_soup = BeautifulSoup(source_html,features='lxml')
+                    try: 
+                        source_link = meta_item.attrs['content'].split(';')[1].split('=')[1]
+                        print("change source_link...")
+                        source_html = requests.get(source_link).content
+                        source_soup = BeautifulSoup(source_html,features='lxml')
+                    except:
+                        tmp.write(json.dumps(i))
+                        tmp.write('\n')
+                        print("something wrong...")
+                        continue
 
             # 拼装数据，写入mongodb
             content_raw = source_soup.prettify()
