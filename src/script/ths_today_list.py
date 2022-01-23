@@ -1,3 +1,4 @@
+import traceback
 from bs4 import BeautifulSoup
 import csv
 import time
@@ -89,16 +90,27 @@ def crawl_detail_from_links():
         index = 0
         for i in temp_list:
             index += 1
+            print(index)
             title = i[0]
             middle_link = i[1]
-            middle = requests.get(middle_link, headers=headers, timeout=15) 
-            if middle.status_code!=200:
+            is_exist = len(list(collection.find({"middle_link": middle_link}).limit(1)))
+            if is_exist:
+                continue
+            try: 
+                middle = requests.get(middle_link, headers=headers, timeout=15) 
+                if middle.status_code!=200:
+                    tmp.write(json.dumps(i))
+                    tmp.write('\n')
+                    print('[ERROR]', index, ':fails', middle_link)
+                    continue
+                middle_html = middle.content
+                middle_soup = BeautifulSoup(middle_html, features='lxml')
+            except:
                 tmp.write(json.dumps(i))
                 tmp.write('\n')
-                print(index, ':fails', middle_link)
+                print('[ERROR]', index, ':fails', middle_link)
                 continue
-            middle_html = middle.content
-            middle_soup = BeautifulSoup(middle_html, features='lxml')
+                
 
             # 初始化源链接 如果没有中转页，则使用middle_link
             source_html = middle_html
@@ -110,33 +122,35 @@ def crawl_detail_from_links():
                 if meta_item.attrs.get('http-equiv') is not None and meta_item.attrs['http-equiv'] == "Refresh":
                     try: 
                         source_link = meta_item.attrs['content'].split(';')[1].split('=')[1]
-                        print("change source_link...")
+                        print("[INFO] change source_link...")
                         source_html = requests.get(source_link).content
                         source_soup = BeautifulSoup(source_html,features='lxml')
-                    except:
+                        # 拼装数据，写入mongodb
+                        content_raw = source_soup.prettify()
+                        content_clean = source_soup.text
+                        nowatime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                        nowadate = time.strftime("%Y-%m-%d", time.localtime())
+                        mongo_doc = {
+                            "source_link": source_link,
+                            "crawler_entry_link": 'http://news.10jqka.com.cn/today_list/',
+                            "content_raw": content_raw,
+                            "content_clean": content_clean,
+                            "crawler_time": nowatime,
+                            "created_date": nowadate,
+                            "updated_time": nowatime,
+                            "title": title,
+                            "middle_link": middle_link,
+                            "tag_list": ["ths_today_list"]
+                        }
+                        inserted_id = collection.insert_one(mongo_doc).inserted_id
+                        print(index, ':', inserted_id, source_link)
+                    except Exception:
                         tmp.write(json.dumps(i))
                         tmp.write('\n')
-                        print("something wrong...")
+                        print('[ERROR] traceback.print_exc():', traceback.print_exc())
+                        print('[ERROR] ', middle_link, source_link)
                         continue
 
-            # 拼装数据，写入mongodb
-            content_raw = source_soup.prettify()
-            content_clean = source_soup.text
-            nowatime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            nowadate = time.strftime("%Y-%m-%d", time.localtime())
-            mongo_doc = {
-                "source_link": source_link,
-                "crawler_entry_link": 'http://news.10jqka.com.cn/today_list/',
-                "content_raw": content_raw,
-                "content_clean": content_clean,
-                "crawler_time": nowatime,
-                "created_date": nowadate,
-                "updated_time": nowatime,
-                "title": title,
-                "tag_list": ["ths_today_list"]
-            }
-            inserted_id = collection.insert_one(mongo_doc).inserted_id
-            print(index, ':', inserted_id, source_link)
             time.sleep(3)
     tmp.close()
 
