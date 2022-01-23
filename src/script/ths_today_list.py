@@ -72,7 +72,7 @@ def get_links():
             # 获取列表页所有的链接
             url = url_demo.format(i)
             print(i, ':', url)
-            html = requests.get(url, headers=headers, timeout=15).content
+            html = requests.get(url, headers=headers, timeout=8).content
             soup = BeautifulSoup(html, features='lxml')
             for tr in soup.find_all(name="span", attrs={"class":"arc-title"}):
                 item = tr.find_all("a")[0]
@@ -95,19 +95,22 @@ def crawl_detail_from_links():
             middle_link = i[1]
             is_exist = len(list(collection.find({"middle_link": middle_link}).limit(1)))
             if is_exist:
+                print('[WARN] middle_link already exist, continue.', middle_link)
                 continue
             try: 
-                middle = requests.get(middle_link, headers=headers, timeout=15) 
+                middle = requests.get(middle_link, headers=headers, timeout=8) 
                 if middle.status_code!=200:
                     tmp.write(json.dumps(i))
                     tmp.write('\n')
                     print('[ERROR]', index, ':fails', middle_link)
+                    time.sleep(3)
                     continue
                 middle_html = middle.content
                 middle_soup = BeautifulSoup(middle_html, features='lxml')
             except:
                 tmp.write(json.dumps(i))
                 tmp.write('\n')
+                time.sleep(3)
                 print('[ERROR]', index, ':fails', middle_link)
                 continue
                 
@@ -117,41 +120,52 @@ def crawl_detail_from_links():
             source_soup = middle_soup
             source_link = middle_link
 
+            health = True
             # 如果是中转页的情况
             for meta_item in middle_soup.find_all("meta"):
                 if meta_item.attrs.get('http-equiv') is not None and meta_item.attrs['http-equiv'] == "Refresh":
                     try: 
-                        source_link = meta_item.attrs['content'].split(';')[1].split('=')[1]
+                        source_link = ''.join(meta_item.attrs['content'].split(';')[1].split('=')[1:])
                         print("[INFO] change source_link...")
-                        source_html = requests.get(source_link).content
+                        source_html = requests.get(source_link, headers=headers, timeout=8).content
                         source_soup = BeautifulSoup(source_html,features='lxml')
-                        # 拼装数据，写入mongodb
-                        content_raw = source_soup.prettify()
-                        content_clean = source_soup.text
-                        nowatime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-                        nowadate = time.strftime("%Y-%m-%d", time.localtime())
-                        mongo_doc = {
-                            "source_link": source_link,
-                            "crawler_entry_link": 'http://news.10jqka.com.cn/today_list/',
-                            "content_raw": content_raw,
-                            "content_clean": content_clean,
-                            "crawler_time": nowatime,
-                            "created_date": nowadate,
-                            "updated_time": nowatime,
-                            "title": title,
-                            "middle_link": middle_link,
-                            "tag_list": ["ths_today_list"]
-                        }
-                        inserted_id = collection.insert_one(mongo_doc).inserted_id
-                        print(index, ':', inserted_id, source_link)
                     except Exception:
                         tmp.write(json.dumps(i))
                         tmp.write('\n')
                         print('[ERROR] traceback.print_exc():', traceback.print_exc())
-                        print('[ERROR] ', middle_link, source_link)
+                        time.sleep(3)
+                        health = False
                         continue
+            
+            if not health:
+                print('[ERROR] ', middle_link, source_link)
+                continue
 
+            # 拼装数据，写入mongodb
+            content_raw = source_soup.prettify()
+            content_clean = source_soup.text
+            nowatime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            nowadate = time.strftime("%Y-%m-%d", time.localtime())
+            mongo_doc = {
+                "source_link": source_link,
+                "crawler_entry_link": 'http://news.10jqka.com.cn/today_list/',
+                "content_raw": content_raw,
+                "content_clean": content_clean,
+                "crawler_time": nowatime,
+                "created_date": nowadate,
+                "updated_time": nowatime,
+                "title": title,
+                "middle_link": middle_link,
+                "tag_list": ["ths_today_list"]
+            }
+            try:
+                inserted_id = collection.insert_one(mongo_doc).inserted_id
+                print(index, ':', inserted_id, source_link)
+            except:
+                print('[ERROR] duplicate key', middle_link, source_link)
             time.sleep(3)
+
+
     tmp.close()
 
 
