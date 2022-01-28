@@ -95,8 +95,8 @@ def crawl_detail_from_links():
             middle_link = i[1]
             is_exist = len(list(collection.find({"middle_link": middle_link}).limit(1)))
             if is_exist:
-                print('[WARN] middle_link already exist, continue.', middle_link)
-                continue
+               print('[WARN] middle_link already exist, continue.', middle_link)
+               continue
             try: 
                 middle = requests.get(middle_link, headers=headers, timeout=8) 
                 if middle.status_code!=200:
@@ -125,7 +125,7 @@ def crawl_detail_from_links():
             for meta_item in middle_soup.find_all("meta"):
                 if meta_item.attrs.get('http-equiv') is not None and meta_item.attrs['http-equiv'] == "Refresh":
                     try: 
-                        source_link = ''.join(meta_item.attrs['content'].split(';')[1].split('=')[1:])
+                        source_link = '='.join(meta_item.attrs['content'].split(';')[1].split('=')[1:])
                         print("[INFO] change source_link...")
                         source_html = requests.get(source_link, headers=headers, timeout=8).content
                         source_soup = BeautifulSoup(source_html,features='lxml')
