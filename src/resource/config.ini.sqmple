@@ -1,3 +1,6 @@
 [tushare]
 # 添加你的tushare token
 token = 
+
+[mongodb]
+conn_str = mongodb://localhost:27017
