@@ -1,3 +1,6 @@
 src/resource/config.ini
 .idea
 .vscode
+*.pyc
+geckodriver.log
+src/script/test*

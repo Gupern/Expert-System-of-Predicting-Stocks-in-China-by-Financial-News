@@ -5,10 +5,17 @@
 
 // Select the database to use.
 use('esps');
+db.info_detail.deleteMany({"content_clean":""})
 
 // The drop() command destroys all data from a collection.
 // Make sure you run it against the correct database and collection.
-db.stock_basic.drop();
+// db.test.drop();
+db.info_detail.drop();
+
+// unique index
+use('esps');
+db.info_detail.ensureIndex({'source_link': 1},{unique:true})
+db.info_detail.ensureIndex({'middle_link': 1},{unique:true})
 
 // Insert a few documents into the sales collection.
 db.sales.insertMany([
