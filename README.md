@@ -27,3 +27,4 @@
 
 # some ref website
 - tushare: `https://tushare.pro/document/2?doc_id=25`
+- using fake-useragent: `https://blog.csdn.net/weixin_44517301/article/details/103393145`
