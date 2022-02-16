@@ -5,6 +5,11 @@
     - 数据统计分析
     - 日常报表生成
     - 辅助投资决策
+
+## Usage
+
+### update ip pool file
+`python src/main.py --crawler=agent --script=update_ip_pool_list`
     
 ## Stacks
 
