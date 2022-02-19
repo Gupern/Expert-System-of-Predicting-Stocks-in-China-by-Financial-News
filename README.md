@@ -10,6 +10,9 @@
 
 ### update ip pool file
 `python src/main.py --crawler=agent --script=update_ip_pool_list`
+
+### using ip_pool
+`python src/main.py --crawler=agent, ip_pool --script=update_ip_pool_list`
     
 ## Stacks
 
