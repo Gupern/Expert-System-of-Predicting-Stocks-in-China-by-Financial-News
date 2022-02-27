@@ -25,6 +25,9 @@
 
 `pip install flake8`
 
+`pip3 install jieba3k`
+- https://github.com/fxsjy/jieba/tree/jieba3k
+
 # mongodb shell
 - mongostore 在官网下载tools https://www.mongodb.com/try/download/tools
 
