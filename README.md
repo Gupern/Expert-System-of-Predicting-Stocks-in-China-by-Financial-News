@@ -5,6 +5,14 @@
     - 数据统计分析
     - 日常报表生成
     - 辅助投资决策
+
+## Usage
+
+### update ip pool file
+`python src/main.py --crawler=agent --script=update_ip_pool_list`
+
+### using ip_pool
+`python src/main.py --crawler=agent, ip_pool --script=update_ip_pool_list`
     
 ## Stacks
 
@@ -16,6 +24,9 @@
 `pip install pymongo`
 
 `pip install flake8`
+
+`pip3 install jieba3k`
+- https://github.com/fxsjy/jieba/tree/jieba3k
 
 # mongodb shell
 - mongostore 在官网下载tools https://www.mongodb.com/try/download/tools
