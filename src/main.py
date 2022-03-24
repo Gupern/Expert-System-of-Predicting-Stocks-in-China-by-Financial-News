@@ -12,6 +12,7 @@
 import configparser
 import os, sys, argparse
 import importlib
+import time
 
 # add local module, abspath is outside the /src
 root_dir = os.path.abspath('.')
@@ -30,7 +31,7 @@ cf.read(root_dir + "/src/resource/config.ini")
 # recieve parameter
 parser = argparse.ArgumentParser(description="esps's main.py, author: Gupern.")
 parser.add_argument("--script", type=str, default=None, help="appoint your crawler's script file name")
-parser.add_argument("--crawler_component", type=str, default=None, help="appoint your crawler component, split by ','")
+parser.add_argument("--crawler_component", type=str, default=None, help="appoint your crawler component, split by \",\". if you want specify date, use \"date:2022-03-01;2022-01-23\"")
 parser.add_argument("--collection", type=str, default="info_detail", help="appoint your mongodb collection, default is info_detail")
 args = parser.parse_args()
 

@@ -5,10 +5,9 @@
 """
 
 from fake_useragent import UserAgent
-import requests
+import requests, time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from time import sleep
 import os, configparser
 from random import choice
 
@@ -29,6 +28,7 @@ class Crawler():
         self.browser = None
         self.cap = None
         self.headers = {"User-Agent": ""}
+        self.date = None
 
         if crawler_component:
             components = crawler_component.split(",")
@@ -61,6 +61,10 @@ class Crawler():
                 self.browser = webdriver.Chrome(service=selenium_service,
                                                 desired_capabilities=cap,
                                                 chrome_options=chrome_options)
+            for i in components:
+                if i.startswith("date"):
+                    self.date = i.split(":")[1].split(';')
+                    print("[INFO] setting date", self.date)
 
     def __new__(cls, crawler_component):
         print("new %s" % cls)
